@@ -1,0 +1,37 @@
+from  urllib2 import urlopen
+keyword = "samsung"
+html = urlopen("https://shopee.co.id/search?keyword="+keyword), read()
+print(type(html))
+print(html[1:1000])
+-------------------------------------------------------------------------------------------------------------------
+from bs4 import BeautifulSoup
+soup = BeautifulSoup (html, "lxml")
+print (type(soup))
+print (soup.prettify()[1:1000])
+
+produk = soup.find_all("li","prod-itm")
+i = 1
+for p in produk:
+    print p.find('span','prod-itm-fullname').get_text()
+    print p.find('span','prod-itm-price').get_text().replace('Rp','').replace(',','').replace(' ',' ')
+
+----------------------------------------------------------------------------------------------------------------------
+import pandas as pd
+
+nama_produk = []
+harga_produk = []
+
+produk = soup.find_all("li","prod-itm")
+
+for p in produk:
+    nama = p.find('spam',prog-itm-fullname')get_text().ancode('utf-8')
+    harga = p.find('spam',prog-itm-price')get_text().ancode('utf-8')
+    if harga! ="Rp Out of Stock":
+	nama_produk.append(name)
+	harga_produk.append(int(harga.replace('Rp','').replace(',','').replace(' ',' ')))
+produk_dict = {'nama' :nama_produk,'harga':harga_produk}
+df = pd.DataFrame(produk_dict,columns = ['nama', 'harga'])
+df.sort_values('harga',ascending=True)
+-------------------------------------------------------------------------------------------------------------------------
+
+df.to_csv("shopee.csv",sep=',')
