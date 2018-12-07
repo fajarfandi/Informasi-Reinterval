@@ -1,13 +1,19 @@
+INNISIALISASI URL LIB
+
 from  urllib2 import urlopen
 keyword = "samsung"
 html = urlopen("https://shopee.co.id/search?keyword="+keyword), read()
 print(type(html))
 print(html[1:1000])
--------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------
+INNISIALISASI BEAUTIFULSOAP
+
 from bs4 import BeautifulSoup
 soup = BeautifulSoup (html, "lxml")
 print (type(soup))
 print (soup.prettify()[1:1000])
+---------------------------------------------------------------------------------------------------------------------
+TELUSURI
 
 produk = soup.find_all("li","prod-itm")
 i = 1
@@ -16,6 +22,8 @@ for p in produk:
     print p.find('span','prod-itm-price').get_text().replace('Rp','').replace(',','').replace(' ',' ')
 
 ----------------------------------------------------------------------------------------------------------------------
+PANDA DATAFRAME
+
 import pandas as pd
 
 nama_produk = []
@@ -33,5 +41,6 @@ produk_dict = {'nama' :nama_produk,'harga':harga_produk}
 df = pd.DataFrame(produk_dict,columns = ['nama', 'harga'])
 df.sort_values('harga',ascending=True)
 -------------------------------------------------------------------------------------------------------------------------
+SAVE DATA
 
 df.to_csv("shopee.csv",sep=',')
