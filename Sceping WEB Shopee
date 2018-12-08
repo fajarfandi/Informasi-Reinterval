@@ -15,16 +15,14 @@ print (soup.prettify()[1:1000])
 ---------------------------------------------------------------------------------------------------------------------
 TELUSURI
 
-produk = soup.find_all("li","prod-itm")
+produk = soup.find_all("div","col-xs-2-4")
 i = 1
 for p in produk:
-    print p.find('span','prod-itm-fullname').get_text()
-    print p.find('span','prod-itm-price').get_text().replace('Rp','').replace(',','').replace(' ',' ')
+    print p.find('a','shopee-item-card--link').get_text()
+    print p.find('div','shopee-item-card__current-price').get_text().replace('Rp','').replace(',','').replace(' ',' ')
 
 ----------------------------------------------------------------------------------------------------------------------
 PANDA DATAFRAME
-
-import pandas as pd
 
 nama_produk = []
 harga_produk = []
@@ -32,8 +30,8 @@ harga_produk = []
 produk = soup.find_all("li","prod-itm")
 
 for p in produk:
-    nama = p.find('spam',prog-itm-fullname')get_text().ancode('utf-8')
-    harga = p.find('spam',prog-itm-price')get_text().ancode('utf-8')
+    nama = p.find('spam', 'shopee-item-card__textname')get_text().ancode('utf-8')
+    harga = p.find('spam','shopee-item-card__current-price')get_text().ancode('utf-8')
     if harga! ="Rp Out of Stock":
 	nama_produk.append(name)
 	harga_produk.append(int(harga.replace('Rp','').replace(',','').replace(' ',' ')))
